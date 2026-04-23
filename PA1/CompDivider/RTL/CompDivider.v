@@ -44,14 +44,14 @@ Divisor u_Divisor (
     .clk            (clk),
     .divisor_out    (divisor_out)
 );
-ALU_Div u_ALU (
+ALU u_ALU (
     .src_1      (if_remainder[63:32]),
     .src_2      (divisor_out),
     .funct      (funct),
     .result     (alu_result),
     .carry      (alu_carry)
 );
-Control_Div u_Control (
+Control u_Control (
     .clk        (clk),
     .rst_n      (rst_n),
     .start      (start),
