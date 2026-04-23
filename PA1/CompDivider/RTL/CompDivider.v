@@ -27,7 +27,7 @@ wire busy;
 // Remainder
 
 
-Interface_Div u_Interface (
+Interface u_Interface (
     .divisor        (divisor),
     .dividend       (dividend),
     .remainder      (if_remainder),
