@@ -1,0 +1,32 @@
+24 01 00 02   // addiu $1, $0, 2        ; R1 = 2，作為 loop counter
+34 02 FF FF   // ori   $2, $0, 0xFFFF   ; R2 = 0000FFFF，測 zero extension
+24 03 FF FF   // addiu $3, $0, -1       ; R3 = FFFFFFFF，測 sign extension
+10 43 00 01   // beq   $2, $3, 1        ; not taken，因 0000FFFF != FFFFFFFF
+AC 02 00 00   // sw    $2, 0($0)        ; DM[0] = 0000FFFF
+10 21 00 01   // beq   $1, $1, 1        ; taken，跳過下一條
+AC 03 00 04   // sw    $3, 4($0)        ; skipped，不應執行
+8C 04 00 00   // lw    $4, 0($0)        ; R4 = DM[0] = 0000FFFF
+00 81 28 21   // addu  $5, $4, $1       ; R5 = 0000FFFF + 2 = 00010001
+AC 05 00 04   // sw    $5, 4($0)        ; DM[4] = 00010001
+08 00 00 0D   // j     0x0000000D       ; jump to instruction 14
+24 06 00 CC   // addiu $6, $0, 0x00CC   ; skipped
+AC 06 00 08   // sw    $6, 8($0)        ; skipped
+24 21 FF FF   // addiu $1, $1, -1       ; loop: R1 = R1 - 1
+10 20 00 01   // beq   $1, $0, 1        ; if R1 == 0, exit loop
+10 00 FF FD   // beq   $0, $0, -3       ; branch back to loop
+AC 01 00 08   // sw    $1, 8($0)        ; DM[8] = 00000000
+AC 03 00 0C   // sw    $3, 12($0)       ; DM[12] = FFFFFFFF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
